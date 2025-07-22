@@ -152,6 +152,9 @@ export function showTestModal(url, baseUrl, application) {
         <option value="spike">spike</option>
         <option value="soak">soak</option>
         <option value="breakpoint">breakpoint</option>
+        <option value="consulta_intensiva">Consulta Intensiva</option>
+        <option value="insert_massa">Inserção em massa</option>
+        <option value="atualizacao_simultanea">Atualização simultanea</option>
       </select> 
       <a id="download" class="btn btn-primary" href="#" style="width: 100px">Download</a>
     </div>

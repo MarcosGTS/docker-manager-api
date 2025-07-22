@@ -20,8 +20,6 @@ function getFilename(application, type) {
 }
 
 async function generateScript(url, type, application) {
-  // TO-DO: Need to check type is a valid option
-  if (!types.includes(type)) return { success: false };
 
   const template = await readFile(
     path.join(TEST_FOLDER, `${type}.js`),

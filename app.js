@@ -38,6 +38,7 @@ app.get("/", (req, res) => {
 
 app.get("/options", async (req, res) => {
   const result = await dockerManager.getAvailablesConfigs();
+  console.log(result);
   res.json({ result });
 });
 
@@ -74,25 +75,31 @@ app.post("/down", async (req, res) => {
 });
 
 app.get("/script", async (req, res) => {
-  const id = req.query.id;
-  const type = req.query.type;
+  try {
+    const id = req.query.id;
+    const type = req.query.type;
 
-  const application = dockerManager.getApplicationById(id);
+    const application = dockerManager.getApplicationById(id);
 
-  if (application) {
-    const port = application.port;
-    const result = await scriptManager.generateScript(
-      `${URL}:${port}`,
-      type,
-      application
-    );
-    res.download(result.value);
-  } else {
-    res.json({
-      success: false,
-      message: "Something went wrong, try again!",
-      result: null,
-    });
+    if (application) {
+      const port = application.port;
+      const result = await scriptManager.generateScript(
+        `${URL}:${port}`,
+        type,
+        application
+      );
+
+      res.download(result.value);
+    } else {
+      res.json({
+        success: false,
+        message: "Something went wrong, try again!",
+        result: null,
+      });
+    }
+
+  } catch(err) {
+    res.json({success: false, message: "Something went wrong"})
   }
 });
 
