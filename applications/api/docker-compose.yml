@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: django-api-container
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=SuperSecret_1234
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DATABASE=postgres
+      - PGPASSWORD=SuperSecret_1234
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+
+  database:
+    image: postgres:16-alpine
+    container_name: postgres-db-container
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

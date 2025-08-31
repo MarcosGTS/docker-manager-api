@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,10 +81,10 @@ WSGI_APPLICATION = 'api_root.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Registrar',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'database',#db
+        'NAME': os.environ.get('POSTGRES_DB', 'mydatabase'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'SuperSecret_1234'),
+        'HOST': 'database',
         'PORT': 5432,
     }
 }
@@ -125,14 +126,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-
-# CORS_ALLOW_ORIGINS = [
-#     'http://localhost:8000'
-# ]

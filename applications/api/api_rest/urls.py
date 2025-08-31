@@ -4,8 +4,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.get_users, name='get_all_users'),
-    path('users/<int:id>', views.get_by_id),
-    path('users', views.user_manager),
-    path('users/<int:id>/', views.delete_user_by_id) # Nova rota para DELETE
+    path('users', views.users, name='get_all_users'),   # GET todos / POST novo
+    path('users/<int:id>', views.user_detail, name='user_detail'),  # GET/PUT/DELETE por ID
 ]

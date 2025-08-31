@@ -8,8 +8,12 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
-RUN python manage.py migrate   
+RUN python manage.py collectstatic --no-input
 
 EXPOSE 8000
+
+RUN apt-get update && apt-get install -y netcat-traditional
+
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 CMD ["gunicorn", "api_root.asgi:application", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]
