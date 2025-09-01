@@ -4,6 +4,13 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('users', views.users, name='get_all_users'),   # GET todos / POST novo
-    path('users/<int:id>', views.user_detail, name='user_detail'),  # GET/PUT/DELETE por ID
+    # Rota raiz para mostrar todos os usuários (apenas GET)
+    path('', views.list_all_users, name='list_all_users'),
+
+    # Rota /users/ para listar todos (GET) e criar um novo (POST)
+    path('users', views.user_list_create, name='user_list_create'),
+    
+    # Rota /users/<id>/ para operações em um usuário específico (GET, PUT, DELETE)
+    # <int:pk> captura um número da URL e o passa como argumento 'pk' para a view.
+    path('users/<int:pk>/', views.user_detail_update_delete, name='user_detail_update_delete'),
 ]

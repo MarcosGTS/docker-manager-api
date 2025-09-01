@@ -16,4 +16,4 @@ RUN apt-get update && apt-get install -y netcat-traditional
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 
-CMD ["gunicorn", "api_root.asgi:application", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "-k", "uvicorn.workers.UvicornWorker", "api_root.asgi:application"]
